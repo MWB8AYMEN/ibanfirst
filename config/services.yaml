@@ -11,6 +11,7 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -24,8 +25,29 @@ services:
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
+        autowire: true
+        autoconfigure: true
+        public: false
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
+
+    App\Service\:
+        autowire: true
+        autoconfigure: true
+        public: false
+        resource: '../src/Service/*'
+        bind:
+            string $wsApiUrl: "%env(API_URL)%"
+            string $wsApiUseName: "%env(API_USERNAME)%"
+            string $WsApiPass: "%env(API_PASSWORD)%"
+
+#    api.order_manager:
+#        class: App\src\Service\WsClient
+#        arguments:
+#            - "%env(API_URL)%"
+#            - "%env(API_USERNAME)%"
+#            - "%env(API_PASSWORD)%"
+#            - "@http_client"
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
