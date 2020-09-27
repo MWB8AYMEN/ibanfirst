@@ -1,12 +1,15 @@
 <?php
+
+
 namespace App\Controller;
+
 
 use App\Service\WsClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-Class WalletController extends AbstractController
+class FinancialMovementController extends AbstractController
 {
     /**
      * @var WsClientInterface
@@ -18,13 +21,14 @@ Class WalletController extends AbstractController
         $this->wsClient = $wsClient;
     }
     /**
-     * @Route("/wallet", name="app_wallet_list")
+     * @Route("/financialMovement", name="app_financial_movement_list")
      */
     public function list()
     {
-        $wallets = $this->wsClient->wallets();
-        return $this->render('wallet/index.html.twig',
-            array("wallets" => $wallets['wallets']
+        $financialMovements = $this->wsClient->financialMovements();
+        return $this->render('financialMovement/index.html.twig',
+            array("financialMovements" => $financialMovements['financialMovements']
             ));
     }
+
 }

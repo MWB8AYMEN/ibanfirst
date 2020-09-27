@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+
+
+    <body>
+        <h1>
+            IBAN FIRST
+        </h1>
+        <p>
+            <ul>
+            <li>
+                <a href="{{ path('app_wallet_list') }}"> Wallets </a>
+            </li>
+            <li>
+                <a href="{{ path('app_financial_movement_list') }}"> Financial Movements </a>
+            </li>
+        </ul>
+        </p>
+    </body>
+</html>

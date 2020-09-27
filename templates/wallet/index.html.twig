@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <style>
+        table
+        {
+            border-spacing : 0;
+            border-collapse : collapse;
+
+        }
+        table tr td{
+            border: solid black 2px;
+            padding: 5px;
+        }
+        table tr th{
+            border: solid black 2px;
+        }
+    </style>
+    <title>{% block title %}Wallets{% endblock %}</title>
+</head>
+<body>
+<h1>
+ Wallets
+</h1>
+<p>
+    <a href="{{ path('home') }}">Retour</a>
+</p>
+<table>
+    <thead>
+        <th>identifier</th>
+        <th>Tag</th>
+        <th>Currency </th>
+        <th>Booking Amount</th>
+        <th>Value Amount </th>
+    </thead>
+    {% for wallet in wallets %}
+
+        <tr>
+            <td>{{ wallet.id }}</td>
+            <td>{{ wallet.tag }}</td>
+            <td>{{ wallet.currency }}</td>
+            <td>
+                {{ wallet.bookingAmount.value }} &nbsp; {{ wallet.bookingAmount.currency }}
+            </td>
+            <td>
+                {{ wallet.valueAmount.value }} &nbsp; {{ wallet.valueAmount.currency }}
+            </td>
+        </tr>
+
+    {% endfor %}
+</table>
+</body>
+</html>

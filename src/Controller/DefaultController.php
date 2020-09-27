@@ -13,6 +13,7 @@ Class DefaultController extends AbstractController
      */
     public function index()
     {
-        return new Response('welcome iban first');
+        return $this->render('base.html.twig'
+            );
     }
 }
