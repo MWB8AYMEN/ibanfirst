@@ -2,6 +2,8 @@
 
 
 namespace App\Service;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class WsClient implements WsClientInterface
@@ -22,7 +24,10 @@ class WsClient implements WsClientInterface
         $this->wsseHeader = WsseGenerator::prepareWsseHeader($wsApiUseName, $WsApiPass);
     }
 
-    public function wallets() : array
+    /**
+     * @return iterable
+     */
+    public function wallets() : iterable
     {
         $response = $this->client->request(
             self::HTTP_GET_METHOD,
@@ -30,14 +35,17 @@ class WsClient implements WsClientInterface
             $this->wsseHeader
         );
 
-        /*
-         * @add return exception on error response
-         */
+        if($response->getStatusCode() !== Response::HTTP_OK){
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Access Unauthorized');
+        }
 
         return $response->toArray();
     }
 
-    public function financialMovements() : array
+    /**
+     * @return iterable
+     */
+    public function financialMovements() : iterable
     {
         $response = $this->client->request(
             'GET',
@@ -45,9 +53,9 @@ class WsClient implements WsClientInterface
             $this->wsseHeader
         );
 
-        /*
-         * @add return exception on error response
-         */
+       if($response->getStatusCode() !== Response::HTTP_OK){
+           throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Access Unauthorized');
+       }
 
         return $response->toArray();
     }
